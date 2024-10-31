@@ -111,15 +111,15 @@ class FattreeInfo(TopoInfo):
 	def getNumNodes(self):
 		return self.numNodes
 
-        def calcNumNodes(self, shape):
-                levels = shape.split(":")
+	def calcNumNodes(self, shape):
+					levels = shape.split(":")
 
-                total_hosts = 1;
-                for l in levels:
-                        links = l.split(",")
-                        total_hosts = total_hosts * int(links[0])
+					total_hosts = 1;
+					for l in levels:
+									links = l.split(",")
+									total_hosts = total_hosts * int(links[0])
 
-                return total_hosts
+					return total_hosts
 
 class DragonFlyInfo(TopoInfo):
 	def __init__( self, shape ):
@@ -163,13 +163,13 @@ class DragonFly2Info(TopoInfo):
 		self.params["dragonfly.num_groups"] =  nGrp
 		self.params["dragonfly.algorithm"] =  "minimal"
 
-                print lcl
-                print nRtrs
-                print glbl
-                print nGrp
+		print lcl
+		print nRtrs
+		print glbl
+		print nGrp
 
 		self.numNodes = int(nGrp) * hostsPerGroup
-                print self.numNodes
+        print self.numNodes
 
 	def getParams(self):
 		return self.params
@@ -177,28 +177,28 @@ class DragonFly2Info(TopoInfo):
 	def getNumNodes(self):
 		return self.numNodes
 
-def getTopoObj( topo ):
-	for case in switch(topo):
-		if case('torus'):
-			return topoTorus()
-		if case('fattree'):
-			return topoFatTree()
-		if case('dragonfly'):
-			return topoDrgonFly()
-		if case('dragonfly2'):
-			return topoDrgonFly2()
+	def getTopoObj( topo ):
+		for case in switch(topo):
+			if case('torus'):
+				return topoTorus()
+			if case('fattree'):
+				return topoFatTree()
+			if case('dragonfly'):
+				return topoDrgonFly()
+			if case('dragonfly2'):
+				return topoDrgonFly2()
 
-	sys.exit("how did we get here")
+		sys.exit("how did we get here")
 
-def getTopoInfo( topo, shape ):
-	for case in switch(topo):
-		if case('torus'):
-			return TorusInfo(shape)
-		if case('fattree'):
-			return FattreeInfo(shape)
-		if case('dragonfly'):
-			return DragonFlyInfo(shape)
-		if case('dragonfly2'):
-			return DragonFly2Info(shape)
+	def getTopoInfo( topo, shape ):
+		for case in switch(topo):
+			if case('torus'):
+				return TorusInfo(shape)
+			if case('fattree'):
+				return FattreeInfo(shape)
+			if case('dragonfly'):
+				return DragonFlyInfo(shape)
+			if case('dragonfly2'):
+				return DragonFly2Info(shape)
 
 	sys.exit("how did we get here")

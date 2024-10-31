@@ -40,6 +40,8 @@ libmerlin_la_SOURCES = \
 	test/simple_patterns/incast.cc \
 	topology/torus.h \
 	topology/torus.cc \
+	topology/tree.h \
+	topology/tree.cc \
 	topology/mesh.h \
 	topology/mesh.cc \
 	topology/fattree.h \
@@ -91,7 +93,8 @@ libmerlin_la_SOURCES = \
 	topology/pymerlin-topo-polarstar.py \
 	topology/pymerlin-topo-hyperx.py \
 	topology/pymerlin-topo-fattree.py \
-	topology/pymerlin-topo-mesh.py
+	topology/pymerlin-topo-mesh.py \
+	topology/pymerlin-topo-tree.py
 
 EXTRA_DIST = \
 	tests/testsuite_default_merlin.py \
@@ -143,7 +146,8 @@ BUILT_SOURCES = \
 	topology/pymerlin-topo-polarstar.inc \
 	topology/pymerlin-topo-hyperx.inc \
 	topology/pymerlin-topo-fattree.inc \
-	topology/pymerlin-topo-mesh.inc
+	topology/pymerlin-topo-mesh.inc \
+	topology/pymerlin-topo-tree.inc
 
 install-exec-hook:
 	$(SST_REGISTER_TOOL) SST_ELEMENT_SOURCE     merlin=$(abs_srcdir)
