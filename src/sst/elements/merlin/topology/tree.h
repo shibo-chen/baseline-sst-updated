@@ -90,7 +90,7 @@ public:
 */
 
 private:
-    static std::vector<std::unordered_map<int, int>> dest_to_port_map;
+    std::vector<std::unordered_map<int, int>> dest_to_port_map;
     int router_id;
 
     int tree_size;

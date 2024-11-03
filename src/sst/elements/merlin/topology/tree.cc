@@ -51,46 +51,44 @@ topo_tree::topo_tree(ComponentId_t cid, Params& params, int num_ports, int rtr_i
 
     num_total_hosts = params.find<int>("total_hosts", 1);
 
-		if(map_initialized == false){
-			dest_to_port_map.resize(num_routers);
-			for(int router_id_tmp = 0; router_id_tmp < num_routers; router_id_tmp++){
-				int cumulated_rtrs = 0;
-				int level = 0;
-				for(int i = 0; i < num_levels; i++){
-					cumulated_rtrs += num_rtrs_each_level[i];
-					if(router_id_tmp < cumulated_rtrs){
-						level = i;
-						break;
-					}
-				}
-
-				if(level == 0){
-					for(int i = 0; i < upward_ports_each_level[0]; i++){
-						dest_to_port_map[router_id_tmp][upward_ports_each_level[0]*router_id_tmp+i] = i;
-					}
-					dest_to_port_map[router_id_tmp][num_total_hosts] = upward_ports_each_level[0];
-				}else{
-					int rtr_prev_lvl_start_id = 0;
-					int rtr_crnt_lvl_start_id = 0;
-					for(int i = 0; i < (level-1); i++){
-						rtr_prev_lvl_start_id += num_rtrs_each_level[i];
-					}
-					rtr_crnt_lvl_start_id = rtr_prev_lvl_start_id + num_rtrs_each_level[level];
-					for(int i = 0; i < upward_ports_each_level[level]; i++){ // iterate thru all upwards ports
-						// first figure out which router it is connected to
-						int connected_router_id = rtr_prev_lvl_start_id + (router_id_tmp - rtr_crnt_lvl_start_id)*upward_ports_each_level[level] + i;
-							for(auto j = dest_to_port_map[connected_router_id].begin(); j != dest_to_port_map[connected_router_id].end(); j++){
-								// if the upwards router can reach it, it can reach through this port
-								dest_to_port_map[router_id_tmp][j->first] = i;
-							}
-					}
-					dest_to_port_map[router_id_tmp][num_total_hosts] = upward_ports_each_level[level];
+		dest_to_port_map.resize(num_routers);
+		for(int router_id_tmp = 0; router_id_tmp < num_routers; router_id_tmp++){
+			int cumulated_rtrs = 0;
+			int level = 0;
+			for(int i = 0; i < num_levels; i++){
+				cumulated_rtrs += num_rtrs_each_level[i];
+				if(router_id_tmp < cumulated_rtrs){
+					level = i;
+					break;
 				}
 			}
 
-			
-			map_initialized = true;
+			if(level == 0){
+				for(int i = 0; i < upward_ports_each_level[0]; i++){
+					dest_to_port_map[router_id_tmp][upward_ports_each_level[0]*router_id_tmp+i] = i;
+				}
+				dest_to_port_map[router_id_tmp][num_total_hosts] = upward_ports_each_level[0];
+			}else{
+				int rtr_prev_lvl_start_id = 0;
+				int rtr_crnt_lvl_start_id = 0;
+				for(int i = 0; i < (level-1); i++){
+					rtr_prev_lvl_start_id += num_rtrs_each_level[i];
+				}
+				rtr_crnt_lvl_start_id = rtr_prev_lvl_start_id + num_rtrs_each_level[level];
+				for(int i = 0; i < upward_ports_each_level[level]; i++){ // iterate thru all upwards ports
+					// first figure out which router it is connected to
+					int connected_router_id = rtr_prev_lvl_start_id + (router_id_tmp - rtr_crnt_lvl_start_id)*upward_ports_each_level[level] + i;
+						for(auto j = dest_to_port_map[connected_router_id].begin(); j != dest_to_port_map[connected_router_id].end(); j++){
+							// if the upwards router can reach it, it can reach through this port
+							dest_to_port_map[router_id_tmp][j->first] = i;
+						}
+				}
+				dest_to_port_map[router_id_tmp][num_total_hosts] = upward_ports_each_level[level];
+			}
 		}
+
+			
+
 	}
 
 
