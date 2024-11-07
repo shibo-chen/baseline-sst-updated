@@ -488,7 +488,7 @@ void ArielCore::handleEvent(StandardMem::Request* event) {
         if(isCoreFenced() && pending_transaction_count == 0)
             unfence();
     } else {
-            output->fatal(CALL_INFO, -4, "Memory event response to core: %" PRIu32 " was not found in pending list.\n", coreID);
+            output->fatal(CALL_INFO, -4, "Memory event response to core: %" PRIu32 " was not found in pending list. %s\n", coreID, event->getString());
     }
     delete event;
 }

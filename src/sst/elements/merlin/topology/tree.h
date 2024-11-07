@@ -89,7 +89,7 @@ public:
 
 */
 
-private:
+public:
     std::vector<std::unordered_map<int, int>> dest_to_port_map;
     int router_id;
 

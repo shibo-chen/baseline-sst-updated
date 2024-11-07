@@ -204,7 +204,12 @@ class MemNICBase : public MemLinkBase {
         virtual std::set<EndpointInfo>* getDests() { return &destEndpointInfo; }
         
         virtual std::string findTargetDestination(Addr addr) {
+            dbg.debug(_L4_, "remote size: %d\n",destEndpointInfo.size());
+            dbg.debug(_L4_, "addr: %" PRIu64 "\n",addr);
+
+
             for (std::set<EndpointInfo>::const_iterator it = destEndpointInfo.begin(); it != destEndpointInfo.end(); it++) {
+                dbg.debug(_L4_, "down addr: %" PRIu64 " upp address %" PRIu64 "\n",it->region.start, it->region.end);
                 if (it->region.contains(addr)) return it->name;
             }
             return "";

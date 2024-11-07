@@ -403,6 +403,12 @@ void CoherenceController::forwardByAddress(MemEventBase * event) {
 void CoherenceController::forwardByAddress(MemEventBase * event, Cycle_t ts) {
     event->setSrc(cachename_);
     std::string dst = linkDown_->findTargetDestination(event->getRoutingAddress());
+    if (is_debug_event(event)){
+        //TODO
+        debug->debug(_L4_, "T: %-20" PRIu64 " %-20" PRIu64 " %-20s Dest    (%s)\n",
+                getCurrentSimCycle(), timestamp_, cachename_.c_str(), dst);
+    }
+
     if (dst != "") { /* Common case */
         event->setDst(dst);
         Response fwdReq = {event, ts, packetHeaderBytes + event->getPayloadSize()};

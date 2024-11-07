@@ -135,6 +135,17 @@ class topoTree(Topology):
             topo = rtr.setSubComponent(self.router.getTopologySlotName(),"merlin.tree",0)
             self._applyStatisticsSettings(topo)
             topo.addParams(self._getGroupParams("main"))
+            rtr.addParams({
+                "flit_size":"64b",
+                "xbar_bw": "2GB/s",
+                "num_ports": str(self.num_uplinks_per_router[self.determineLevel(i)]+1),
+                "link_bw": "2GB/s",
+                "output_buf_size" : "2KB",
+                "topology": "merlin.tree",
+                "output_latency" : "100ps",
+                "input_buf_size" : "2KB",
+                "input_latency" : "100ps"
+            })
             self.routers.append(rtr)
             if i == (self.num_total_routers-1): # this is the one that links to the mem
                 for j in range(0, self.num_uplinks_per_router[-1]+1):

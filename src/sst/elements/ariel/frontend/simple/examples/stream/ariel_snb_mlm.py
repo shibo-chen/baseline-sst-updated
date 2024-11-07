@@ -133,7 +133,7 @@ ariel.addParams({
     "maxtranscore"        : "16",
     "maxissuepercycle"    : "2",
     "pipetimeout"         : "0",
-    "executable"          : str(os.environ['OMP_EXE']),
+    "executable"          : "./a.out",
     "appargcount"         : "0",
     "arielinterceptcalls" : "1",
     "launchparamcount"    : 1,
@@ -276,5 +276,6 @@ sst.setStatisticOutputOptions( {
     "filepath"  : "./stats-snb-ariel.csv",
     "separator" : ", "
 } )
+sst.setProgramOption("exit-after", "10s")
 
 print("Completed configuring the SST Sandy Bridge model")
