@@ -43,7 +43,6 @@ MemLink::MemLink(ComponentId_t id, Params &params, TimeConverter* tc) : MemLinkB
 
 /* init function */
 void MemLink::init(unsigned int phase) {
-    std::clog <<"mem link init"<<std::endl;
     if (!phase) {
         MemEventInitRegion * ev = new MemEventInitRegion(info.name, info.region, false);
         dbg.debug(_L10_, "%s sending region init message: %s\n", getName().c_str(), ev->getVerboseString().c_str());
@@ -64,7 +63,6 @@ void MemLink::init(unsigned int phase) {
                 epInfo.id = 0;
                 epInfo.region = mEvRegion->getRegion();
                 addRemote(epInfo);
-                std::clog << "region addr: " << epInfo.region.start << "-" << epInfo.region.end << std::endl;
                 delete ev;
             } else if (mEv->getInitCmd() == MemEventInit::InitCommand::Endpoint) { 
                 // Intercept and record so that we know how to find this endpoint.
@@ -211,11 +209,7 @@ std::string MemLink::getTargetDestination(Addr addr) {
 }
 
 std::string MemLink::findTargetDestination(Addr addr) {
-    dbg.debug(_L4_, "remote size: %d\n",remotes.size());
-    dbg.debug(_L4_, "addr: %" PRIu64 "\n",addr);
-
     for (std::set<EndpointInfo>::const_iterator it = remotes.begin(); it != remotes.end(); it++) {
-        dbg.debug(_L4_, "down addr: %" PRIu64 " upp address %" PRIu64 "\n",it->region.start, it->region.end);
         if (it->region.contains(addr)) return it->name;
     }
     return "";

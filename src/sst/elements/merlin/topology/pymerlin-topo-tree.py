@@ -152,12 +152,12 @@ class topoTree(Topology):
                     if j < self.num_uplinks_per_router[-1]:
                         rtr.addLink(self.getLink(self.getLinkName(self.getRouterNameForId(upward_links[i][j]), self.getRouterNameForId(i))),\
                                     "port%d"%j, sst.merlin._params["link_lat"])
-                        print("rtr %d port %d connect to router %s with link %s"%(i,j, self.getRouterNameForId(upward_links[i][j]),self.getLinkName(self.getRouterNameForId(upward_links[i][j]), self.getRouterNameForId(i))))
+                        # print("rtr %d port %d connect to router %s with link %s"%(i,j, self.getRouterNameForId(upward_links[i][j]),self.getLinkName(self.getRouterNameForId(upward_links[i][j]), self.getRouterNameForId(i))))
                     else:
                         self.memLinkName = self.getMemLinkName(self.getRouterNameForId(i))
                         self.memLink.append(self.getLink(self.memLinkName))
                         rtr.addLink(self.getLink(self.memLinkName),"port%d"%(self.num_uplinks_per_router[-1]), sst.merlin._params["link_lat"])
-                        print("rtr %d port %d connect to mem with link %s"%(i,j, self.memLinkName))
+                        # print("rtr %d port %d connect to mem with link %s"%(i,j, self.memLinkName))
 
             # this is the first level
             elif self.determineLevel(i) == 0:
@@ -167,11 +167,11 @@ class topoTree(Topology):
                                      "port%d"%j, sst.merlin._params["link_lat"])
                         self.hostLinks.append(self.getLink(self.composeHostLinkName(self.host_names[i*self.num_uplinks_per_router[0]+j], self.getRouterNameForId(i))))
                         self.hostLinkNames.append(self.composeHostLinkName(self.host_names[i*self.num_uplinks_per_router[0]+j], self.getRouterNameForId(i)) )
-                        print("rtr %d port %d connect to host %s with link %s"%(i,j, self.host_names[i*self.num_uplinks_per_router[0]+j], self.hostLinkNames[-1]))
+                        # print("rtr %d port %d connect to host %s with link %s"%(i,j, self.host_names[i*self.num_uplinks_per_router[0]+j], self.hostLinkNames[-1]))
                     else:
                         rtr.addLink(self.getLink(self.getLinkName(self.getRouterNameForId(i), self.getRouterNameForId(downward_links[i]))),\
                                      "port%d"%j, sst.merlin._params["link_lat"])
-                        print("rtr %d port %d connect to rtr %s with link %s"%(i,j, self.getRouterNameForId(downward_links[i]),self.getLinkName(self.getRouterNameForId(i), self.getRouterNameForId(downward_links[i]))))
+                        # print("rtr %d port %d connect to rtr %s with link %s"%(i,j, self.getRouterNameForId(downward_links[i]),self.getLinkName(self.getRouterNameForId(i), self.getRouterNameForId(downward_links[i]))))
 
             else:
                 for j in range(0, self.num_uplinks_per_router[self.determineLevel(i)]+1):

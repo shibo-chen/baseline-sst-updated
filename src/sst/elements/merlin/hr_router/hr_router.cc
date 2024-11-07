@@ -471,7 +471,6 @@ hr_router::init(unsigned int phase)
                 ire = topo->process_UntimedData_input(static_cast<RtrEvent*>(ev));
             }
             std::vector<int> outPorts;
-            std::clog << "init router id: "<<id <<" port:"<<i<<std::endl;
             topo->routeUntimedData(i, ire, outPorts);
             for ( std::vector<int>::iterator j = outPorts.begin() ; j != outPorts.end() ; ++j ) {
                 /* Little tricky here.  Need to clone both the event, and the
