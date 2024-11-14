@@ -131,7 +131,7 @@ class topoTree(Topology):
 
 
         for i in range(0, self.num_total_routers):
-            rtr = self._instanceRouter(self.num_uplinks_per_router[self.determineLevel(i)],i)
+            rtr = self._instanceRouter(self.num_uplinks_per_router[self.determineLevel(i)]+1,i)
             topo = rtr.setSubComponent(self.router.getTopologySlotName(),"merlin.tree",0)
             self._applyStatisticsSettings(topo)
             topo.addParams(self._getGroupParams("main"))

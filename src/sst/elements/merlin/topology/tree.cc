@@ -51,7 +51,6 @@ topo_tree::topo_tree(ComponentId_t cid, Params& params, int num_ports, int rtr_i
     parseDimString(shape);
 
 		dest_to_port_map.resize(num_routers);
-	
 
 		for(int router_id_tmp = 0; router_id_tmp < num_routers; router_id_tmp++){
 			int cumulated_rtrs = 0;

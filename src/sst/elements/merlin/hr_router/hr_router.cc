@@ -13,6 +13,7 @@
 // information, see the LICENSE file in the top level directory of the
 // distribution.
 #include <sst_config.h>
+#include <iostream>
 #include "hr_router/hr_router.h"
 
 #include <sst/core/params.h>
@@ -134,6 +135,7 @@ hr_router::hr_router(ComponentId_t cid, Params& params) :
     if ( num_ports == -1 ) {
         merlin_abort.fatal(CALL_INFO, -1, "hr_router requires num_ports to be specified\n");
     }
+    std::clog << "rtr_id: " << cid << " num_ports: " << num_ports << std::endl;
 
 
     // Get the number of VNs
